@@ -1,0 +1,8 @@
+torch
+Pillow
+regex
+tqdm
+peft
+librosa
+nltk
+gradio
