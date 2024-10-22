@@ -146,3 +146,47 @@ CopyInput (512) → LayerNorm → Linear → GELU → Linear → Output (3072)
 3. Text → Tokenizer → Token Embeddings
 4. Concatenation: [Start Text Embeddings + Projected Image Features + End Text Embeddings]
 5. Combined Input → Phi-3.5 → Generated Response
+
+---
+
+## Architectural Limitations
+
+1. **Projection Layer Constraints**
+  - Current simple two-layer projection may be insufficient for complex cross-modal alignment
+
+2. **Memory Management Issues**
+  - Large batch sizes not possible due to:
+    - Image embeddings taking significant memory
+    - Full attention computation being memory intensive
+    - Combined text and image tokens creating long sequences
+
+  - Gradient checkpointing helps but impacts training speed
+
+3. **Training Inefficiencies**
+  - Small batch size limits effective gradient updates
+  - Fixed learning rate may not be optimal for different training phases
+  - Limited data augmentation for multimodal inputs
+
+---
+
+## Future Scope (What can be done better)
+
+1.) **Diversifying Data Sources for Better Generalization** - 
+The current implementation could benefit significantly from incorporating diverse data sources beyond the existing dataset. Introducing varied image-text pairs from different domains, contexts, and styles would help the model develop more robust and generalizable representations.
+
+2.) **Granular Image Processing Approach** - 
+Rather than processing images as single units, breaking them down into smaller, meaningful segments could enhance the model's understanding of visual details. This approach would allow the model to focus on specific image regions and establish stronger connections between image components and textual descriptions. The implementation could involve using sliding windows, attention-based region selection, or semantic segmentation to divide images.
+
+3.) **Flash Attention Implementation** -
+The integration of Flash Attention would mark a significant improvement in computational efficiency and memory usage. This would enable processing of longer sequences and larger batch sizes, potentially leading to better training dynamics.
+
+4.) **Enhanced Architecture for Cross-Modal Understanding** -
+The current projection layer architecture could be enhanced to create more sophisticated interactions between image and text modalities. Implementation of cross-attention mechanisms, hierarchical projection layers, and modality-specific preprocessing steps would allow for more nuanced feature extraction and combination.
+
+5.) **Extended Training Paradigm** -
+While current GPU limitations constrain training duration and batch size, the model's performance could potentially improve significantly with longer training periods and larger batch sizes. (😢)
+
+6.) **Alternative Vision Model Integration** -
+The exploration of different vision models, particularly the integration of Qwen or similar advanced vision models, could provide alternative approaches to visual feature extraction.
+
+---
