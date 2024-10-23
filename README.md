@@ -149,6 +149,14 @@ CopyInput (512) → LayerNorm → Linear → GELU → Linear → Output (3072)
 
 ---
 
+## Logs
+
+Training Loss
+
+<img width="1434" alt="image" src="https://github.com/user-attachments/assets/fe770a3a-7766-4511-a85a-7e6487d467e3">
+
+---
+
 ## Architectural Limitations
 
 1. **Projection Layer Constraints**
