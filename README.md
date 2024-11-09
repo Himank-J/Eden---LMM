@@ -96,7 +96,7 @@ This model demonstrates a flexible and scalable approach to multi-modal AI by in
 
 - Projects CLIP image features into Phi's embedding space:
 ```
-CopyInput (512) → LayerNorm → Linear → GELU → Linear → Output (3072)
+Input (512) → LayerNorm → Linear → GELU → Linear → Output (3072)
 ```
 
 - MultimodalPhiModel
